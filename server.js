@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 8000;
 connectDB();
 
 app.use(cors());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 // Error Handler
 app.use(errorHandler);
 
+// Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
