@@ -152,8 +152,6 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
-export default router;
-
 // @route DELETE       /api/ideas/:id
 // @description     Delete idea
 // @access          Public
@@ -178,3 +176,5 @@ router.delete('/:id', async (req, res, next) => {
     next(err);
   }
 });
+
+export default router;
