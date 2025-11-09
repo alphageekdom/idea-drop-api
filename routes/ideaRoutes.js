@@ -77,3 +77,28 @@ router.post('/', async (req, res, next) => {
 });
 
 export default router;
+
+// @route DELETE       /api/ideas/:id
+// @description     Delete idea
+// @access          Public
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      res.status(404);
+      throw new Error('Idea Not Found');
+    }
+
+    const idea = await Idea.findByIdAndDelete(id);
+
+    if (!idea) {
+      res.status(404);
+      throw new Error('Idea Not Fount');
+    }
+    res.json({ message: 'Idea deleted successfully.' });
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
