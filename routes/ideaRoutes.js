@@ -50,11 +50,11 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // @route           POST /api/ideas
-// @description     Post an idea
+// @description     Create an idea
 // @access          Public
 router.post('/', async (req, res, next) => {
   try {
-    const { title, summary, description, tags } = req.body;
+    const { title, summary, description, tags } = req.body || {};
 
     if (!title?.trim() || !summary?.trim() || !description?.trim()) {
       res.status(400);
@@ -121,7 +121,7 @@ router.put('/:id', async (req, res, next) => {
       throw new Error('Idea Not Found');
     }
 
-    const { title, summary, description, tags } = req.body;
+    const { title, summary, description, tags } = req.body || {};
 
     if (!title?.trim() || !summary?.trim() || !description?.trim()) {
       res.status(400);
@@ -146,31 +146,6 @@ router.put('/:id', async (req, res, next) => {
     }
 
     res.json(updatedIdea);
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-});
-
-// @route DELETE       /api/ideas/:id
-// @description     Delete idea
-// @access          Public
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      res.status(404);
-      throw new Error('Idea Not Found');
-    }
-
-    const idea = await Idea.findByIdAndDelete(id);
-
-    if (!idea) {
-      res.status(404);
-      throw new Error('Idea Not Fount');
-    }
-    res.json({ message: 'Idea deleted successfully.' });
   } catch (err) {
     console.log(err);
     next(err);
