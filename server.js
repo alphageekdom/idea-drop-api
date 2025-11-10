@@ -5,6 +5,7 @@ import ideaRouter from './routes/ideaRoutes.js';
 import authRouter from './routes/authRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import connectDB from './config/db.js';
+import cookieParser from 'cookie-parser';
 
 // Load environment variables
 dotenv.config();
@@ -18,6 +19,7 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Routes
 app.use('/api/ideas', ideaRouter);
