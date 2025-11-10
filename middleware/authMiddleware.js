@@ -24,7 +24,7 @@ export const protect = async (req, res, next) => {
       throw new Error('User not found');
     }
 
-    res.user = user;
+    req.user = user;
     next();
   } catch (err) {
     console.log(err);
